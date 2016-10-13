@@ -46,7 +46,7 @@ $(document).ready(
                 });
                 progress.fadeOut();
 
-                $('.subtitle').text('http://zeus.ugent.be/z.e.u.s./' + xhr.responseText);
+                $('.subtitle').text('http://zeus.ugent.be/zeuswpi/' + xhr.responseText);
             }
         });
     });
