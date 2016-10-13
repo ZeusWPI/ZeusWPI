@@ -36,7 +36,7 @@ $(document).ready(
                 progress.fadeIn();
             },
             uploadProgress: function(event, position, total, percentComplete) {
-                $('progress').text(percentComplete + '%');
+                $('progress').attr('value', percentComplete);
             },
             complete: function(xhr) {
                 $('progress').attr('value', 100);
