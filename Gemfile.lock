@@ -47,6 +47,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  backports
   capistrano
   capistrano-bundler
   capistrano-passenger
