@@ -60,5 +60,6 @@ server 'zeus.ugent.be', user: 'zeuswpi', roles: %w(app db web), ssh_options: { p
 #     # password: 'please use keys'
 #   }
 
-# set :rails_env, 'production'
-# set :rbenv_type, :system
+set :rails_env, 'production'
+set :rbenv_type, :system
+set :rbenv_ruby, File.read('.ruby-version').strip
