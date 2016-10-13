@@ -19,26 +19,27 @@
     </div>
     <div class="hero-body">
       <div class="container has-text-centered">
+        <div class="content">
         <h1 class="title">
           Upload <span class="random-shit">a file</span>
         </h1>
         <h3 class="subtitle">
         </h3>
-        <form id="upload" action="/" method="post">
-          <label class="file-upload">
-            <input name="file" type="file" required/>
-            <span class="button is-primary is-outlined">
-              <span class="icon hidden">
-                <i class="fa fa-check"></i>
+          <form id="upload" action="/" method="post">
+            <label class="file-upload">
+              <input name="file" type="file" required/>
+              <span class="button is-primary is-outlined">
+                <span class="icon hidden">
+                  <i class="fa fa-check"></i>
+                </span>
+                <span>
+                  Choose file
+                </span>
               </span>
-              <span>
-                Choose file
-              </span>
-            </span>
-          </label>
-
-          <input type="submit" class="button is-success is-outlined is-disabled" />
-        </form>
+            </label>
+            <input type="submit" class="button is-success is-outlined is-disabled" />
+          </form>
+        </div>
         <progress class="progress is-primary" value="30" max="100" style="display:none;">30%</progress>
       </div>
     </div>
