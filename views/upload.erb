@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Z.E.U.S.</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.1/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="/style.css" />
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+  <script src="/progress.js" charset="utf-8"></script>
+</head>
+<body>
+  <section class="hero is-fullheight is-bold is-dark dark-bg">
+    <div class="logo-wrapper">
+      <img class="logo" src="https://werthen.com/zinc/zeuslogo.svg?color=white" alt="Logo">
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          Upload <span class="random-shit">a file</span>
+        </h1>
+        <h3 class="subtitle">
+        </h3>
+        <form id="upload" action="/" method="post">
+          <label class="file-upload">
+            <input name="file" type="file" required/>
+            <span class="button is-primary is-outlined">
+              <span class="icon hidden">
+                <i class="fa fa-check"></i>
+              </span>
+              <span>
+                Choose file
+              </span>
+            </span>
+          </label>
+
+          <input type="submit" class="button is-success is-outlined is-disabled" />
+        </form>
+        <progress class="progress is-primary" value="30" max="100" style="display:none;">30%</progress>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

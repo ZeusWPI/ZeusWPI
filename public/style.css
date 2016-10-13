@@ -1,0 +1,40 @@
+label.file-upload input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+.hero.is-primary.is-bold.dark-bg {
+    background: #485563; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #485563 , #29323c); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #485563 , #29323c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
+}
+
+.icon {
+    max-width: 200px;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.icon.hidden {
+    width: 0;
+    transition: all 0.5s;
+}
+
+.button {
+    transition: all 0.5s;
+}
+
+.logo-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    top: 50px;
+}
+
+.logo {
+    max-height: 100%;
+    width: 150px;
+}
