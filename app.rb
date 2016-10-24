@@ -5,6 +5,10 @@ require 'sinatra/reloader' if development?
 
 require 'json'
 
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    username == ENV['ZEUSWPI_USER'] and password == ENV['ZEUSWPI_PASS']
+end
+
 get '/:file' do
   path = "files/#{params[:file]}"
   halt 404, 'File not found' unless File.exist? path
