@@ -5,9 +5,19 @@ require 'sinatra/reloader' if development?
 
 require 'json'
 
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
-    username == ENV['ZEUSWPI_USER'] and password == ENV['ZEUSWPI_PASS']
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV['ZEUSWPI_USER'], ENV['ZEUSWPI_PASS']]
+  end
 end
+
 
 get '/:file' do
   path = "files/#{params[:file]}"
@@ -16,10 +26,12 @@ get '/:file' do
 end
 
 get '/' do
+  protected!
   erb :upload
 end
 
 post '/' do
+  protected!
   tempfile = params[:file][:tempfile]
   filename = params[:file][:filename]
   ext = File.extname(filename)
