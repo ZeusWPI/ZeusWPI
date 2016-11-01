@@ -15,13 +15,14 @@ $(document).ready(
             'a cat picture',
             'a video of a moose',
             'your diary',
-            'secret source code'
+            'secret source code',
+            'a copyrighted video'
         ];
 
         setInterval(function(){
             $('.random-shit').fadeOut();
             $('.random-shit').promise().done(function () {
-                $('.random-shit').text(random_shit[random_shit_index++ % random_shit.length]);
+                $('.random-shit').text('Upload ' + random_shit[random_shit_index++ % random_shit.length]);
                 $('.random-shit').fadeIn();
             });
         }, 3000);
