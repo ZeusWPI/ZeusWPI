@@ -40,8 +40,6 @@ post '/' do
   newname = ''
   path = ''
 
-  halt 500, 'Error' unless %w(.png .jpg .jpeg).include? ext
-
   loop do
     newname = SecureRandom.base64(6).tr('/+', '-_') + ext
     path = "files/#{newname}"
