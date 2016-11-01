@@ -22,6 +22,7 @@ end
 get '/:file' do
   path = "files/#{params[:file]}"
   halt 404, 'File not found' unless File.exist? path
+  response.header['Content-Disposition'] = "attachment"
   send_file path
 end
 

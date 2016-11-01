@@ -1,19 +1,20 @@
 <h1 class="title">
   <span class="random-shit">Upload a file</span>
 </h1>
-<h3 class="subtitle">
-</h3>
-<form id="upload" action="./" method="post" enctype="multipart/form-data">
-  <label class="file-upload">
-    <input name="file" type="file" required/>
-    <span class="button is-primary is-outlined">
-      <span class="icon hidden">
-        <i class="fa fa-check"></i>
+<div class="either">
+  <form id="upload" class="form" action="./" method="post" enctype="multipart/form-data">
+    <label class="file-upload">
+      <input name="file" type="file" required/>
+      <span class="button is-primary is-outlined">
+        <span class="icon hidden">
+          <i class="fa fa-check"></i>
+        </span>
+        <span>
+          Choose file
+        </span>
       </span>
-      <span>
-        Choose file
-      </span>
-    </span>
-  </label>
-  <input type="submit" class="button is-success is-outlined is-disabled" />
-</form>
+    </label>
+    <input type="submit" class="button is-success is-outlined is-disabled" />
+  </form>
+  <p class="feedback"></p>
+</div>

@@ -32,7 +32,7 @@ $(document).ready(
         $('form').ajaxForm({
             beforeSend: function() {
                 $('progress').attr('value', 0);
-                $('form').hide();
+                $('form input').prop("disabled", true);
                 $('.title').fadeOut();
                 $('.title').promise().done(function() {
                     $('.title').text('File uploading...');
@@ -45,18 +45,29 @@ $(document).ready(
             },
             complete: function(xhr) {
                 $('progress').attr('value', 100);
+                progress.fadeOut();
+            },
+            success: function(responseText, statusText, xhr, form) {
                 $('.title').promise().done(function () {
                     $('.title').text('File uploaded');
                     $('.title').fadeIn();
                 });
-                progress.fadeOut();
-            },
-            success: function(xhr) {
-
-                $('.subtitle').text(document.location.href + xhr.responseText);
+                $('form').fadeOut();
+                $('form').promise().done(function() {
+                    $('.feedback').text(document.location.href + responseText);
+                    $('.feedback').fadeIn();
+                });
             },
             error: function(xhr) {
-                $('.subtitle').text(xhr.responseText);
+                $('.title').promise().done(function() {
+                    $('.title').text("Something went wrong :-(");
+                    $('.title').fadeIn();
+                });
+                $('form').fadeOut();
+                $('form').promise().done(function() {
+                    $('.feedback').text("Try another file perhaps. It's not *our* fault.");
+                    $('.feedback').fadeIn();
+                });
             }
         });
     });
