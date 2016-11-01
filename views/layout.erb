@@ -16,16 +16,17 @@
   </head>
   <body>
     <section class="hero is-fullheight is-bold is-dark dark-bg">
-        <div class="hero-body">
-          <div class="container has-text-centered">
-            <img class="logo" src="https://werthen.com/zinc/zeuslogo.svg?color=white" alt="Logo">
-            <div class="content">
-              <%= yield %>
-            </div>
+      <div class="hero-body is-netnie-fullheight">
+        <div class="container has-text-centered">
+          <img class="logo" src="https://werthen.com/zinc/zeuslogo.svg?color=white" alt="Logo" />
+          <div class="content">
+            <%= yield %>
           </div>
         </div>
       </div>
-      <progress class="progress is-primary" value="0" max="100">0%</progress>
+      <div class="progress-wrapper">
+        <progress class="progress is-primary" value="0" max="100">0%</progress>
+      </div>
     </section>
   </body>
 </html>

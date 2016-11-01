@@ -34,6 +34,10 @@ $(document).ready(
                 $('progress').attr('value', 0);
                 $('form').hide();
                 $('.title').fadeOut();
+                $('.title').promise().done(function() {
+                    $('.title').text('File uploading...');
+                    $('.title').fadeIn();
+                });
                 progress.fadeIn();
             },
             uploadProgress: function(event, position, total, percentComplete) {
@@ -46,8 +50,13 @@ $(document).ready(
                     $('.title').fadeIn();
                 });
                 progress.fadeOut();
+            },
+            success: function(xhr) {
 
-                $('.subtitle').text('http://zeus.ugent.be/zeuswpi/' + xhr.responseText);
+                $('.subtitle').text(document.location.href + xhr.responseText);
+            },
+            error: function(xhr) {
+                $('.subtitle').text(xhr.responseText);
             }
         });
     });
