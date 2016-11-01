@@ -38,3 +38,7 @@ label.file-upload input[type="file"] {
     max-height: 100%;
     width: 150px;
 }
+
+progress.progress {
+    display: none;
+}
