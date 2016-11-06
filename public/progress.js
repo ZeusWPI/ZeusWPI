@@ -15,13 +15,14 @@ $(document).ready(
             'a cat picture',
             'a video of a moose',
             'your diary',
-            'secret source code'
+            'secret source code',
+            'a copyrighted video'
         ];
 
         setInterval(function(){
             $('.random-shit').fadeOut();
             $('.random-shit').promise().done(function () {
-                $('.random-shit').text(random_shit[random_shit_index++ % random_shit.length]);
+                $('.random-shit').text('Upload ' + random_shit[random_shit_index++ % random_shit.length]);
                 $('.random-shit').fadeIn();
             });
         }, 3000);
@@ -31,8 +32,12 @@ $(document).ready(
         $('form').ajaxForm({
             beforeSend: function() {
                 $('progress').attr('value', 0);
-                $('form').hide();
+                $('form input').prop("disabled", true);
                 $('.title').fadeOut();
+                $('.title').promise().done(function() {
+                    $('.title').text('File uploading...');
+                    $('.title').fadeIn();
+                });
                 progress.fadeIn();
             },
             uploadProgress: function(event, position, total, percentComplete) {
@@ -40,13 +45,29 @@ $(document).ready(
             },
             complete: function(xhr) {
                 $('progress').attr('value', 100);
+                progress.fadeOut();
+            },
+            success: function(responseText, statusText, xhr, form) {
                 $('.title').promise().done(function () {
                     $('.title').text('File uploaded');
                     $('.title').fadeIn();
                 });
-                progress.fadeOut();
-
-                $('.subtitle').text('http://zeus.ugent.be/zeuswpi/' + xhr.responseText);
+                $('form').fadeOut();
+                $('form').promise().done(function() {
+                    $('.feedback').text(document.location.href + responseText);
+                    $('.feedback').fadeIn();
+                });
+            },
+            error: function(xhr) {
+                $('.title').promise().done(function() {
+                    $('.title').text("Something went wrong :-(");
+                    $('.title').fadeIn();
+                });
+                $('form').fadeOut();
+                $('form').promise().done(function() {
+                    $('.feedback').text("Try another file perhaps. It's not *our* fault.");
+                    $('.feedback').fadeIn();
+                });
             }
         });
     });

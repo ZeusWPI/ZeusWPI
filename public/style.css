@@ -38,3 +38,26 @@ label.file-upload input[type="file"] {
     max-height: 100%;
     width: 150px;
 }
+
+.is-netnie-fullheight {
+    min-height: 100%;
+    margin-bottom: -60px;
+}
+
+.content {
+    font-size: 2ex;
+    color: white;
+}
+
+.progress-wrapper {
+    padding: 30px;
+    height: 60px;
+}
+
+progress.progress {
+    display: none;
+}
+
+.either .feedback {
+    display: none;
+}
