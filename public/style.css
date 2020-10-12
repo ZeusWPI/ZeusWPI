@@ -61,3 +61,7 @@ progress.progress {
 .either .feedback {
     display: none;
 }
+
+a:hover {
+    color: #518040;
+}
