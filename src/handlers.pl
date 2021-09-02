@@ -10,7 +10,7 @@
 :- multifile http:location/3.
 :- dynamic   http:location/3.
 
-http:location(files, '/files', []).
+http:location(files, root(.), []).
 
 :- http_handler(root(.)             , main_controller:index             , [id(main)]  ).
 
