@@ -28,6 +28,7 @@ user_specific -->
     {http_session_data(user(_Id, Name, Role))},
     html([
         \admin_link(Role),
+        \nav_item(location_by_id(images), 'Images'),
         \nav_item(location_by_id(user), Name),
         \nav_item(location_by_id(logout), 'Logout')
     ]).
@@ -44,4 +45,4 @@ admin_link(admin) -->
             ])
         ])
     ).
-admin_link(_    ) --> html('').
+admin_link(_) --> html('').
