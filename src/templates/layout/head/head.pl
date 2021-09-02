@@ -4,7 +4,7 @@
 
 head -->
     html([
-        title('Tapp'),
+        title('ZeusWPI'),
         \bootstrap
     ]).
 
