@@ -18,7 +18,7 @@ http:location(files, '/files', []).
 :- http_handler(root(login/callback), login_controller:callback         , []          ).
 :- http_handler(root(login/logout)  , login_controller:logout           , [id(logout)]).
 
-:- http_handler(root(images)        , image_controller:images           , [id(images)]).
+:- http_handler(root(images)        , login(image_controller:images)    , [id(images)]).
 % Replace with nginx?
 :- http_handler(files(.)            , http_reply_from_files('files', []), [prefix, id(files)]).
 
