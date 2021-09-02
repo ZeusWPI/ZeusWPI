@@ -7,25 +7,34 @@
 :- use_module(library(http/http_session)).
 :- use_module(library(http/html_write)).
 
+:- use_module('../../config').
 :- use_module('../models/user_model').
 :- use_module('../templates/layout/page').
 
+
 login(Request) :-
-    http_redirect(
-        see_other, 
-        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&client_id=tomtest&redirect_uri=http://localhost:5000/login/callback', 
-        Request
-    ).
+    client_id(ClientId),
+    redirect_uri(RedirectUri),
+    atomic_list_concat([
+        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&',
+        'client_id=', ClientId, '&',
+        'redirect_uri=', RedirectUri
+    ], Uri),
+    http_redirect(see_other, Uri, Request).
 
 callback(Request) :-
     % Catch thrown error to allow backtracking
     catch(http_parameters(Request, [code(Code, [])]), error(existence_error(_, _), _), fail),
+    
+    client_id(ClientId),
+    client_secret(ClientSecret),
+    redirect_uri(RedirectUri),
     Form = [
         code=Code,
         grant_type=authorization_code,
-        client_id=tomtest,
-        client_secret=blargh,
-        redirect_uri='http://localhost:5000/login/callback'
+        client_id=ClientId,
+        client_secret=ClientSecret,
+        redirect_uri=RedirectUri
     ],
     http_post('https://adams.ugent.be/oauth/oauth2/token/', form(Form), Reply, []),
     atom_json_dict(Reply, Json, []),
