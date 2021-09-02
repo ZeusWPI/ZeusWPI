@@ -38,8 +38,7 @@ user_view(user(Id, Name, Role)) :-
         div([class='uk-grid-medium uk-child-width-1-4@xl uk-child-width-1-3@l uk-child-width-1-2@m uk-child-width-1-1@s uk-text-center uk-text-bold', 'uk-grid'], [
             div(\property_card('Id', Id)),
             div(\property_card('Name', Name)),
-            div(\property_card('Role', Role)),
-            div(\property_card('Orders', 140))
+            div(\property_card('Role', Role))
         ])
     ).
 

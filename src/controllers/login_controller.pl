@@ -1,4 +1,4 @@
-:- module('login_controller', [auth/2, admin/2]).
+:- module('login_controller', [login/2, admin/2]).
 
 :- use_module(library(http/json)).
 :- use_module(library(http/http_client)).

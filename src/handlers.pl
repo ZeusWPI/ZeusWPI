@@ -11,4 +11,4 @@
 :- http_handler(root(login/logout)  , login_controller:logout     , [id(logout)]).
 
 :- http_handler(root(users)         , admin(user_controller:users), [id(users)] ).
-:- http_handler(root(user)          , auth(user_controller:user)  , [id(user)]  ).
+:- http_handler(root(user)          , login(user_controller:user) , [id(user)]  ).

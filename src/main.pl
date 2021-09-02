@@ -1,7 +1,6 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_session)).
-:- use_module(library(http/http_redis_plugin)).
 
 :- use_module('handlers').
 
