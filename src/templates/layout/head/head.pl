@@ -5,10 +5,10 @@
 head -->
     html([
         title('ZeusWPI'),
-        \bootstrap
+        \uikit
     ]).
 
-bootstrap -->
+uikit -->
     html([
         link([
             href='https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/css/uikit.min.css',
