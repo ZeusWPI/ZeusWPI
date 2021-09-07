@@ -4,7 +4,7 @@
 
 get_image(FileName) :-
     directory_files('files', Entries),
-    allowed_image_formats(Extension),
+    content_type(_, Extension),
     member(FileName, Entries),
     atom_concat(_, Extension, FileName).
 

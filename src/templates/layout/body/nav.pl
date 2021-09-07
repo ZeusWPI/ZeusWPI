@@ -27,22 +27,16 @@ nav_item(Href, Content) -->
 user_specific --> 
     {http_session_data(user(_Id, Name, Role))},
     html([
-        \admin_link(Role),
+        \admin_stuff(Role),
         \nav_item(location_by_id(images), 'Images'),
         \nav_item(location_by_id(user), Name),
         \nav_item(location_by_id(logout), 'Logout')
     ]).
 user_specific --> nav_item(location_by_id(login), 'Login').
 
-admin_link(admin) --> 
-    html(
-        li([
-            a([href='#'], ['Admin']),
-            div([class='uk-navbar-dropdown'], [
-                ul([class='uk-nav uk-navbar-dropdown-nav'], [
-                    \nav_item(location_by_id(users), 'Users')
-                ])
-            ])
-        ])
-    ).
-admin_link(_) --> html('').
+admin_stuff(admin) --> 
+    html([
+        \nav_item(location_by_id(users), 'Users'),
+        \nav_item(location_by_id(new_image), 'Upload')
+    ]).
+admin_stuff(_) --> html('').
