@@ -8,10 +8,8 @@
 
 users(_Request) :-
     findall(
-        User, 
-        (
-            get_user(Id, Name, Role), User = user(Id, Name, Role)
-        ),
+        user(Id, Name, Role),
+        get_user(Id, Name, Role),
         Users
     ),
     users_view(Users).
