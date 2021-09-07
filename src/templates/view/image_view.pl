@@ -21,10 +21,9 @@ list_elements([image(FileName)|Images], FileLocation) -->
     html([
         div(div([class='uk-card uk-card-default'], [
             div([class='uk-card-body'], [
-                img(['data-src'=Uri, width='', height='', alt='', 'uk-img'], [])
-            ]),
-            div([class='uk-card-footer'], [
-                a([class='uk-button uk-button-text', href=Uri], ['Open'])
+                a([href=Uri], 
+                    img(['data-src'=Uri, width='', height='', alt='', 'uk-img'], [])
+                )
             ])
         ])), 
         \list_elements(Images, FileLocation)
