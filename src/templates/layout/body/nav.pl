@@ -29,6 +29,7 @@ user_specific -->
     html([
         \admin_stuff(Role),
         \nav_item(location_by_id(images), 'Images'),
+        \nav_item(location_by_id(documents), 'Files'),
         \nav_item(location_by_id(user), Name),
         \nav_item(location_by_id(logout), 'Logout')
     ]).
@@ -37,6 +38,6 @@ user_specific --> nav_item(location_by_id(login), 'Login').
 admin_stuff(admin) --> 
     html([
         \nav_item(location_by_id(users), 'Users'),
-        \nav_item(location_by_id(new_image), 'Upload')
+        \nav_item(location_by_id(new_upload), 'Upload')
     ]).
 admin_stuff(_) --> html('').

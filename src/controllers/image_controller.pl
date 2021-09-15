@@ -18,30 +18,3 @@ images(_Request) :-
         Images
     ),
     images_view(Images).
-
-new(_Request) :-
-    upload_form.
-
-upload(Request) :-
-    http_read_data(Request, Parts, [form_data(mime)]),
-	member(mime(Attributes, Data, []), Parts),
-	
-    memberchk(name(file), Attributes),
-
-    % Filter allowed content type
-    member(type(Type), Attributes),
-    (content_type(Type, Extension) ->
-        generated_file_length(Length),
-        random_atom(Length, Atom),
-        atom_concat(Atom, Extension, FileName),
-        atom_concat('files/', FileName, Path),
-    
-        open(Path, write, FileStream, [type(binary)]),
-        write(FileStream, Data),
-        close(FileStream),
-        
-        atom_concat('/', FileName, Location),
-        http_redirect(see_other, Location, Request)
-        ;
-        page_("The facts don't line out. Check your filetype and try again.")
-    ).

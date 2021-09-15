@@ -17,4 +17,7 @@ content_type('image/jpeg'   , '.jpg').
 content_type('image/png'    , '.png').
 content_type('image/svg+xml', '.svg').
 
+content_type('application/zip', '.zip').
+content_type('application/pdf', '.pdf').
+
 generated_file_length(40).
