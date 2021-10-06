@@ -30,7 +30,6 @@ user_specific -->
         \admin_stuff(Role),
         \nav_item(location_by_id(images), 'Images'),
         \nav_item(location_by_id(documents), 'Files'),
-        \nav_item(location_by_id(user), Name),
         \nav_item(location_by_id(logout), 'Logout')
     ]).
 user_specific --> nav_item(location_by_id(login), 'Login').

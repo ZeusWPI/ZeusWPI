@@ -32,26 +32,3 @@ users_view_([user(Id, Name, Role)|Users]) -->
         ]),
         \users_view_(Users)
     ]).
-
-user_view(user(Id, Name, Role)) :-
-    page_(
-        div([class='uk-grid-medium uk-child-width-1-4@xl uk-child-width-1-3@l uk-child-width-1-2@m uk-child-width-1-1@s uk-text-center uk-text-bold', 'uk-grid'], [
-            div(\property_card('Id', Id)),
-            div(\property_card('Name', Name)),
-            div(\property_card('Role', Role))
-        ])
-    ).
-
-property_card(Name, Value) -->
-    {
-        random_member(Style, [default, primary, secondary]),
-        atom_concat('uk-card uk-card-default uk-card-body uk-card-hover uk-card-', Style, Class)
-    },
-    html([
-        div([class=Class], [
-            div([class='uk-grid-divider uk-child-width-expand', 'uk-grid'], [
-                div(Name),
-                div(Value)
-            ])
-        ])
-    ]).

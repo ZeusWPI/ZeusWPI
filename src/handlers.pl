@@ -20,7 +20,7 @@ http:location(files, root(.), []).
 :- http_handler(root(login/callback), login_controller:callback         , []          ).
 :- http_handler(root(login/logout)  , login_controller:logout           , [id(logout)]).
 
-:- http_handler(root(files)         , login(file_controller:files)          , [id(documents)]).
+:- http_handler(root(files)         , login(file_controller:files)      , [id(documents)]).
 :- http_handler(root(images)        , login(image_controller:images)    , [id(images)]).
 :- http_handler(root(upload/new)    , admin(upload_controller:new)      , [id(new_upload), method(get)]).
 :- http_handler(root(upload)        , admin(upload_controller:upload)   , [id(upload), method(post)]).
@@ -29,4 +29,3 @@ http:location(files, root(.), []).
 :- http_handler(files(.)            , http_reply_from_files('files', []), [prefix, id(files)]).
 
 :- http_handler(root(users)         , admin(user_controller:users)      , [id(users)] ).
-:- http_handler(root(user)          , login(user_controller:user)       , [id(user)]  ).
