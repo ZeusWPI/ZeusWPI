@@ -16,15 +16,15 @@ login(Request) :-
     client_id(ClientId),
     redirect_uri(RedirectUri),
     atomic_list_concat([
-        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&',
+        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&state=oi&',
         'client_id=', ClientId, '&',
         'redirect_uri=', RedirectUri
     ], Uri),
     http_redirect(see_other, Uri, Request).
 
-callback(Request) :-
+callback(Request) :-    
     % Catch thrown error to allow backtracking
-    catch(http_parameters(Request, [code(Code, [])]), error(existence_error(_, _), _), fail),
+    catch(http_parameters(Request, [code(Code, []), state(_, [])]), error(existence_error(_, _), _), fail),
     
     client_id(ClientId),
     client_secret(ClientSecret),
