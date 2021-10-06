@@ -13,8 +13,3 @@ users(_Request) :-
         Users
     ),
     users_view(Users).
-
-user(_Request) :-
-    User = user(Id, Name, Role),
-    http_session_data(user(Id, Name, Role)),
-    user_view(User).
