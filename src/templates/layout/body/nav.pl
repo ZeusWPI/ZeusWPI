@@ -5,7 +5,7 @@
 
 nav -->
     html([
-        nav([class='uk-navbar-container', 'uk-navbar'], [
+        nav([class='uk-navbar-container uk-background-primary uk-navbar-transparent uk-light', 'uk-navbar'], [
             div([class='uk-navbar-left'], [
                 a([class='uk-navbar-item uk-logo', href='#'], ['ZeusWPI'])
             ]),

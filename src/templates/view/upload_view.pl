@@ -12,6 +12,6 @@ upload_form() :-
                 input([type=file, name=file]),
                 button([class='uk-button uk-button-default'], ['Select'])
             ]),
-            input([class='uk-button uk-button-default', type=submit, value='Upload'])
+            input([class='uk-button uk-button-primary', type=submit, value='Upload'])
         ])    
     ).
