@@ -25,7 +25,7 @@ nav_item(Href, Content) -->
     ]).
 
 user_specific --> 
-    {http_session_data(user(_Id, Name, Role))},
+    {http_session_data(user(_Id, _Name, Role))},
     html([
         \admin_stuff(Role),
         \nav_item(location_by_id(images), 'Images'),

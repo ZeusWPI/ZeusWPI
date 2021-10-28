@@ -9,6 +9,8 @@
 :- use_module('controllers/upload_controller').
 :- use_module('controllers/user_controller').
 
+%:- use_module('controllers/status_page').
+
 :- multifile http:location/3.
 :- dynamic   http:location/3.
 

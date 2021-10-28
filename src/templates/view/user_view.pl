@@ -1,4 +1,4 @@
-:- module(user_view, [users_view/1, user_view/1]).
+:- module(user_view, [users_view/1]).
 
 :- use_module(library(http/html_write)).
 
