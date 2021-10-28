@@ -10,6 +10,7 @@
 :- use_module('../../config').
 :- use_module('../models/user_model').
 :- use_module('../templates/layout/page').
+:- use_module('../templates/view/require_auth_view').
 
 
 login(Request) :-
@@ -78,8 +79,13 @@ admin(Handler, Request) :-
 
 require_auth(Level, Handler, Request) :-
     (http_session_data(user(_, _, Role)) ->
-        check_level(Role, Level),
-        call(Handler, Request)
+        (check_level(Role, Level) ->
+            call(Handler, Request)
+            ;
+            http_session_assert(alert(danger, 'In fact, you do not have access.')),
+            no_auth_view('')
+        )
         ;
-        fail
+        http_location_by_id(login, Location),
+        http_redirect(see_other, Location, Request)
     ).
