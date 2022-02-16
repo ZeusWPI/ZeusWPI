@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  zeuswpi:
+    build: .
+    environment:
+      - ZEUSWPI_CLIENT_ID=tomtest
+      - ZEUSWPI_CLIENT_SECRET=blargh
+      - ZEUSWPI_REDIRECT_URI=http://localhost:5000/login/callback
+    volumes:
+      - ./files:/app/files
+      - ./data:/app/data
+    ports:
+      - 5000:5000
+
+volumes:
+  files:
+  data:

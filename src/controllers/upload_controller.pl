@@ -32,6 +32,6 @@ upload(Request) :-
         atom_concat('/', FileName, Location),
         http_redirect(see_other, Location, Request)
         ;
-        atom_concat('The facts dont line out. Check your filetype and try again.', Type, String3),
+        atom_concat('The facts dont line out. Check your filetype and try again. Type: ', Type, String3),
         page_(String3)
     ).
