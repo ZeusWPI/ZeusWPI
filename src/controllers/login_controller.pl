@@ -17,7 +17,7 @@ login(Request) :-
     client_id(ClientId),
     redirect_uri(RedirectUri),
     atomic_list_concat([
-        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&state=oi&',
+        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&state=dab&',
         'client_id=', ClientId, '&',
         'redirect_uri=', RedirectUri
     ], Uri),

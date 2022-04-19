@@ -15,7 +15,7 @@
     name: string,
     role: oneof([user, admin])).
 
-:- initialization(db_attach('user.db', [])).
+:- initialization(db_attach('data/user.db', [])).
 
 get_user(Id, Name, Role) :-
     user(Id, Name, Role).
