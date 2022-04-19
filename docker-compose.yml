@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  epiche-prolog-server:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ${PWD}/user.db:/app/user.db
+      - ${PWD}/config.pl:/app/config.pl
+      - ${PWD}/files:/app/files
