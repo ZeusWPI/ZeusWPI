@@ -1,8 +1,11 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
+:- use_module(library(http/http_redis_plugin)).
 :- use_module(library(http/http_session)).
 
 :- use_module('handlers').
+
+:- redis_server(default, redis:6379, []).
 
 :- initialization(main).
 
@@ -27,8 +30,9 @@ main(prod, Port) :-
 
 server(Port, After) :-
     http_set_session_options([
-        timeout(86400  ), % Sessions last a day.
-        cookie( session)  % Don't use the default session cookie name.
+        timeout( 86400  ), % Sessions last a day.
+        cookie(  session), % Don't use the default session cookie name.
+	redis_db(default)  % Redis server for sessions.
     ]),
     http_server(http_dispatch, [port(Port)]),
     busy(After).
