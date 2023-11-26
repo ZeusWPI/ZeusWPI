@@ -12,9 +12,9 @@ head -->
 uikit -->
     html([
         link([
-            href='https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/css/uikit.min.css',
+            href='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/css/uikit.min.css',
             rel=stylesheet
         ]),
-        script([src='https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit.min.js'], []),
-        script([src='https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit-icons.min.js'], [])
+        script([src='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit.min.js'], []),
+        script([src='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit-icons.min.js'], [])
     ]).
