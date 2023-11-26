@@ -52,3 +52,20 @@ Then start with:
 ```sh
 docker compose up -d
 ```
+
+## Adding admins
+
+First the person you want make an admin has to log in to the application once. 
+Then on the server find the user fact in the database `data/user.db`
+
+```prolog
+assert(user(69,"the_admin",user)).
+```
+
+and update the record to
+
+```prolog
+assert(user(69,"the_admin",admin)).
+```
+
+then restart the application.
