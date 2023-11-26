@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-devel:/data
+    ports:
+      - 6379:6379
+
+volumes:
+  redis-devel:

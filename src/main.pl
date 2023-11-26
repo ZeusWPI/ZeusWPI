@@ -5,7 +5,8 @@
 
 :- use_module('handlers').
 
-:- redis_server(default, redis:6379, []).
+:- redis_server(devel, localhost:6379, []).
+:- redis_server(prod, redis:6379, []).
 
 :- initialization(main).
 
@@ -22,18 +23,18 @@ main :-
 main(devel, Port) :-
     write("Mode: Development"), nl,
     write("Port: "), write(Port), nl,
-    server(Port, (make, sleep(5))).
+    server(Port, devel, (make, sleep(5))).
 main(prod, Port) :-
     write("Mode: Production"), nl,
     write("Port: "), write(Port), nl,
-    server(Port, sleep(100)).
+    server(Port, prod, sleep(100)).
 
-server(Port, After) :-
+server(Port, RedisServer, After) :-
     http_set_session_options([
-        timeout( 86400  ), % Sessions last a day.
-        cookie(  session), % Don't use the default session cookie name.
-	redis_db(default), % Redis server for sessions.
-	gc(active) 	   % Active gc for sessions.
+        timeout( 86400  ),     % Sessions last a day.
+        cookie(  session),     % Don't use the default session cookie name.
+	      redis_db(RedisServer), % Redis server for sessions.
+	      gc(active) 	           % Active gc for sessions.
     ]),
     http_server(http_dispatch, [port(Port)]),
     busy(After).
