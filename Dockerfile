@@ -1,4 +1,4 @@
-FROM swipl:stable
+FROM swipl:latest
 
 WORKDIR /app
 
