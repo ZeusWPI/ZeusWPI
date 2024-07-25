@@ -28,6 +28,8 @@ http:location(files, root(.), []).
 :- http_handler(root(upload)        , admin(upload_controller:upload)   , [id(upload), method(post)]).
 
 % Replace with nginx?
-:- http_handler(files(.)            , http_reply_from_files('files', []), [prefix, id(files)]).
+:- http_handler(files(.)            , http_reply_from_files('files', [not_found(404)]), [prefix, id(files)]).
+:- http_handler(root('assets/')     , http_reply_from_files('src/assets', [not_found(404)]), [prefix, id(assets)]).
+% :- http_handler(root(assets)        , write, [prefix, id(assets)]).
 
 :- http_handler(root(users)         , admin(user_controller:users)      , [id(users)] ).

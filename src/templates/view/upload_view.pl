@@ -7,11 +7,21 @@
 
 upload_form() :-
     page_(
-        form([method='POST', action=location_by_id(upload), enctype='multipart/form-data'], [
-            div(['uk-form-custom'], [
-                input([type=file, name=file]),
-                button([class='uk-button uk-button-default'], ['Select'])
-            ]),
-            input([class='uk-button uk-button-primary', type=submit, value='Upload'])
-        ])    
+        div([class='grid m-3'], [
+            form([method='POST', action=location_by_id(upload), enctype='multipart/form-data'], [
+                div([class='file has-name is-boxed'], [
+                    label([class='file-label'],[
+                        input([class='file-input', type=file, name=file]),
+                        span([class='file-cta'], [
+                            span([class='file-icon'], [
+                                i([class='fas fa-upload'], [])
+                            ]),
+                            span([class='file-label'], 'Choose a file...')
+                        ]),
+                        span([class='file-name'], 'LeName.pdf')
+                    ])
+                ]),
+                input([class='button is-primary', type=submit, value='Upload'])
+            ])
+        ])  
     ).

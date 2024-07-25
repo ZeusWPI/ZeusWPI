@@ -8,16 +8,22 @@
 files_view(FileNames) :-
     http_location_by_id(files, FileLocation),
     page_(
-        table([class='uk-table uk-table-striped'], [
-            thead(
-                tr([
-                    th('FileName'),
-                    th('')
-                ])   
-            ),
-            tb(
-                \list_elements(FileNames, FileLocation)
-            )
+        div([class='grid m-3'], [
+            div([class='card'], [
+                div([class='card-content'], [
+                    table([class='table is-fullwidth is-centered'], [
+                        thead(
+                            tr([
+                                th('FileName'),
+                                th('')
+                            ])   
+                        ),
+                        tb(
+                            \list_elements(FileNames, FileLocation)
+                        )
+                    ])
+                ])
+            ])
         ])
     ).
 
@@ -29,7 +35,7 @@ list_elements([FileName|FileNames], FileLocation) -->
     html([
         tr([
             td(FileName),
-            td(a([class='uk-button uk-button-primary', href=Uri], ['Open']))
+            td(a([class='button is-primary', href=Uri], ['Open']))
         ]),
         \list_elements(FileNames, FileLocation)
     ]).

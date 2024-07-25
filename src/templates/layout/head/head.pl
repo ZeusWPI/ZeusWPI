@@ -1,6 +1,7 @@
 :- module('head', [head//0]).
 
 :- use_module(library(http/html_write)).
+:- use_module(library(http/http_dispatch)).
 
 head -->
     html([
@@ -11,10 +12,7 @@ head -->
 
 uikit -->
     html([
-        link([
-            href='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/css/uikit.min.css',
-            rel=stylesheet
-        ]),
-        script([src='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit.min.js'], []),
-        script([src='https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit-icons.min.js'], [])
+        link([href='/assets/css/bulma.min.css',rel=stylesheet]),
+        link([href='/assets/css/fa-all.min.css', rel=stylesheet]),
+        script([src='/assets/js/fa-all.min.js'], [])
     ]).

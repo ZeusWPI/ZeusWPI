@@ -8,7 +8,7 @@
 images_view(Images) :-
     http_location_by_id(files, FileLocation),
     page_(
-        div([class='uk-grid-medium uk-child-width-1-4@xl uk-child-width-1-3@l uk-child-width-1-2@m uk-child-width-1-1@s uk-text-bold', 'uk-grid'='masonry: true'], [
+        div([class='grid m-3'], [
             \list_elements(Images, FileLocation)
         ])
     ).
@@ -19,13 +19,15 @@ list_elements([image(FileName)|Images], FileLocation) -->
         atom_concat(FileLocation, FileName, Uri) 
     },
     html([
-        div(div([class='uk-card uk-card-default'], [
-            div([class='uk-card-body'], [
-                a([href=Uri], 
-                    img(['data-src'=Uri, width='', height='', alt='', 'uk-img'], [])
-                )
-            ])
-        ])), 
+        div([class='cell'], [
+            div([class='card'], [
+                div([class='card-image'], [
+                    figure([class='image is-3by4'], [
+                        img([src=Uri, style='object-fit: cover;'], [])
+                    ])
+                ])
+            ]) 
+        ]),
         \list_elements(Images, FileLocation)
     ]).
 

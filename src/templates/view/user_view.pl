@@ -6,17 +6,21 @@
 
 users_view(Users) :-
     page_(
-        div([class='uk-card uk-card-default uk-card-body'], [
-            table([class='uk-table uk-table-divider'], [
-                thead(
-                    tr([
-                        th('Id'),
-                        th('Name'),
-                        th('Role')
+        div([class='grid m-3'], [
+            div([class='card'], [
+                div([class='card-content'], [
+                    table([class='table is-fullwidth'], [
+                        thead(
+                            tr([
+                                th('Id'),
+                                th('Name'),
+                                th('Role')
+                            ])
+                        ),
+                        tbody([
+                            \users_view_(Users)
+                        ])
                     ])
-                ),
-                tbody([
-                    \users_view_(Users)
                 ])
             ])
         ])
