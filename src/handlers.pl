@@ -2,6 +2,7 @@
 
 :- use_module(library(http/http_files)).
 
+:- use_module('controllers/album_controller').
 :- use_module('controllers/file_controller').
 :- use_module('controllers/image_controller').
 :- use_module('controllers/login_controller').
@@ -22,10 +23,12 @@ http:location(files, root(.), []).
 :- http_handler(root(login/callback), login_controller:callback         , []          ).
 :- http_handler(root(login/logout)  , login_controller:logout           , [id(logout)]).
 
-:- http_handler(root(files)         , login(file_controller:files)      , [id(documents)]).
-:- http_handler(root(images)        , login(image_controller:images)    , [id(images)]).
-:- http_handler(root(upload/new)    , admin(upload_controller:new)      , [id(new_upload), method(get)]).
-:- http_handler(root(upload)        , admin(upload_controller:upload)   , [id(upload), method(post)]).
+:- http_handler(root(files)         , login(file_controller:files)                     , [id(documents)]                 ).
+:- http_handler(root(images)        , login(image_controller:images)                   , [id(images)]                    ).
+:- http_handler(root('albums/l/')   , login(album_controller:albums)                   , [id(albums)      , prefix]      ).
+:- http_handler(root('albums/i/')   , http_reply_from_files('albums', [not_found(404)]), [id(ablum_images), prefix]      ).
+:- http_handler(root(upload/new)    , admin(upload_controller:new)                     , [id(new_upload)  , method(get)] ).
+:- http_handler(root(upload)        , admin(upload_controller:upload)                  , [id(upload)      , method(post)]).
 
 % Replace with nginx?
 :- http_handler(files(.)            , http_reply_from_files('files', [not_found(404)]), [prefix, id(files)]).
