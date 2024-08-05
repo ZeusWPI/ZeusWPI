@@ -8,7 +8,7 @@
 files_view(FileNames) :-
     http_location_by_id(files, FileLocation),
     page_(
-        div([class='grid m-3'], [
+        div([class='grid'], [
             div([class='card'], [
                 div([class='card-content'], [
                     table([class='table is-fullwidth is-centered'], [

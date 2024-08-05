@@ -11,11 +11,9 @@
 body_(Content) -->
     html([
         \nav,
-        div([class='uk-padding'], [
-            div([class='uk-container uk-container-large'], [
-                \alert,
-                Content,
-                \footer
-            ])
+        div([class='columns m-3'], [
+            \alert,
+            div([class='column is-full p-0'], Content),
+            \footer
         ])
     ]).
