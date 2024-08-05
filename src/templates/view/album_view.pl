@@ -44,7 +44,7 @@ albums(Path, [Album|Albums]) -->
                             ])
                         ]),
                         div([class='column'], [
-                            p([class='is-4'], Album)
+                            p([class='is-size-4 is-capitalized'], Album)
                         ])
                     ])
                 ])                ,
