@@ -24,12 +24,16 @@ http:location(files, root(.), []).
 :- http_handler(root(login/callback), login_controller:callback         , []          ).
 :- http_handler(root(login/logout)  , login_controller:logout           , [id(logout)]).
 
-:- http_handler(root(files)         , login(file_controller:files)                     , [id(documents)   , app(cdn)]                ).
-:- http_handler(root(images)        , login(image_controller:images)                   , [id(images)      , app(cdn)]                ).
-:- http_handler(root('albums/l/')   , login(album_controller:albums)                   , [id(albums)      , prefix      , app(album)]).
-:- http_handler(root('albums/i/')   , http_reply_from_files('albums', [not_found(404)]), [id(ablum_images), prefix      , app(album)]).
-:- http_handler(root(upload/new)    , admin(upload_controller:new)                     , [id(new_upload)  , method(get) , app(cdn)]  ).
-:- http_handler(root(upload)        , admin(upload_controller:upload)                  , [id(upload)      , method(post), app(cdn)]  ).
+:- http_handler(root(cdn/files)     , login(file_controller:files)   , [id(documents) , app(cdn)]              ).
+:- http_handler(root(cdn/images)    , login(image_controller:images) , [id(images)    , app(cdn)]              ).
+:- http_handler(root(cdn/upload/new), admin(upload_controller:new)   , [id(new_upload), method(get) , app(cdn)]).
+:- http_handler(root(cdn/upload)    , admin(upload_controller:upload), [id(upload)    , method(post), app(cdn)]).
+
+:- http_handler(root('albums/l/'), login(album_controller:albums)                   , [id(albums)      , prefix, app(album)]              ).
+:- http_handler(root('albums/i/'), http_reply_from_files('albums', [not_found(404)]), [id(ablum_images), prefix, app(album)]              ).
+:- http_handler(root('albums/u/'), login(album_controller:new)                      , [id(album_new)   , prefix, app(album), method(get)] ).
+:- http_handler(root('albums/u/'), login(album_controller:upload)                   , [id(album_upload), prefix, app(album), method(post)]).
+
 
 % Replace with nginx?
 :- http_handler(files(.)            , http_reply_from_files('files', [not_found(404)]), [prefix, id(files)]).
