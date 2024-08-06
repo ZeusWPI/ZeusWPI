@@ -1,6 +1,7 @@
 :- module('handlers', []).
 
 :- use_module(library(http/http_files)).
+:- use_module(library(http/http_stream)).
 
 :- use_module('controllers/album_controller').
 :- use_module('controllers/file_controller').
@@ -38,7 +39,14 @@ http:location(files, root(.), []).
 :- http_handler(root(users)         , admin(user_controller:users)      , [id(users)] ).
 
 
-:- http_request_expansion(save_app, 100).
+% Request expansions
+
+:- http_request_expansion(save_app, 100 ).
+:- http_request_expansion(sync    , 1000). % Should be handled last
 
 save_app(RO, [app(App)|RO], Options) :-
     member(app(App), Options).
+
+sync(R, R, _) :-
+    current_output(CGI),
+    cgi_set(CGI, request(R)).

@@ -4,7 +4,7 @@
 
 :- use_module('alert').
 :- use_module('footer').
-:- use_module('nav/album').
+:- use_module('nav/nav').
 
 :- html_meta body_(html,?,?).
 
