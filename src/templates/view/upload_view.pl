@@ -7,7 +7,7 @@
 
 upload_form() :-
     page_(
-        div([class='grid m-3'], [
+        div([class='grid'], [
             form([method='POST', action=location_by_id(upload), enctype='multipart/form-data'], [
                 div([class='file has-name is-boxed'], [
                     label([class='file-label'],[

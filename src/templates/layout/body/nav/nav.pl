@@ -3,6 +3,14 @@
 :- use_module(library(http/http_session)).
 :- use_module(library(http/html_write)).
 
+:- use_module('../../../../util/current_app').
+:- use_module('_album').
+:- use_module('_cdn').
+:- use_module('_nav_item').
+
+nav --> { current_app(album)}, html([ \album_nav ]).
+nav --> { current_app(cdn) }, html([ \cdn_nav ]).
+
 nav -->
     html([
         nav([class=navbar], [
@@ -10,22 +18,6 @@ nav -->
             div([class='navbar-menu'], [
                 div([class='navbar-end'], [
                     \user_specific
-                ])
-            ])
-        ])
-    ]).
-
-nav_item(Href, Icon, Content) -->
-    html([
-        div([class='navbar-item'], [
-            div([class='buttons'], [
-                a([class='button', href=Href], [
-                    div([
-                        span([class='icon'], [
-                            i([class=Icon], [])
-                        ]), 
-                        span([Content])
-                    ])
                 ])
             ])
         ])

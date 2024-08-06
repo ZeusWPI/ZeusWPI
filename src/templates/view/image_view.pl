@@ -8,7 +8,7 @@
 images_view(Images) :-
     http_location_by_id(files, FileLocation),
     page_(
-        div([class='grid m-3'], [
+        div([class='grid'], [
             \list_elements(Images, FileLocation)
         ])
     ).
