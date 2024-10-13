@@ -8,36 +8,31 @@
 album_view(Path, Albums, Images) :-
     page_(
         div([class='columns'],  [
-            \aside,
+            \aside(Path, Albums),
             div([class='column is-10 pl-0'], [
-                \albums(Path, Albums),
                 \images(Path, Images)
             ])    
         ])
     ).
 
-aside -->
+aside(Path, Albums) -->
+    {
+        atom_concat(NPath, '/', Path),
+        atomic_list_concat(PathParts, '/', NPath),
+        last(PathParts, CurrentAlbum)
+    },
     html([
         div([class='column is-2'], [
+            
             div([class='card'], [
                 header([class='card-header'], [
-                    p([class='card-header-title'], ['The Album Name'])
+                    p([class='card-header-title is-capitalized'], [CurrentAlbum])
                 ]),
                 div([class='card-content'], [
                     div([class='fixed-grid has-1-cols'], [
                         div([class='grid'], [
                             div([class='cell'], [
-                                a([class='button is-fullwidth', href='#', target='_blank', onclick='window.open(\'#\', \'newwindow\', \'width=1000,height=800\'); return false;'], [
-                                    div([
-                                        span([class='icon'], [
-                                            i([class='fas fa-upload'], [])
-                                        ]), 
-                                        span(['New Album'])
-                                    ])
-                                ])
-                            ]),
-                            div([class='cell'], [
-                                a([class='button is-fullwidth', href='#'], [
+                                a([class='button is-fullwidth', href='#', disabled], [
                                     div([
                                         span([class='icon'], [
                                             i([class='fas fa-upload'], [])
@@ -47,7 +42,7 @@ aside -->
                                 ])
                             ]),
                             div([class='cell'], [
-                                a([class='button is-fullwidth is-danger', href='#'], [
+                                a([class='button is-fullwidth is-danger', href='#', disabled], [
                                     div([
                                         span([class='icon'], [
                                             i([class='fas fa-upload'], [])
@@ -59,23 +54,44 @@ aside -->
                         ])
                     ])  
                 ])
+            ]),
+            \aside_albums(Path, Albums)
+        ])
+    ]).
+
+aside_albums(Path, Albums) -->
+    html([
+        div([class='card'], [
+            header([class='card-header'], [
+                div([class='card-header-title'], [
+                    span([class='icon'], [
+                        i([class='fas fa-images'], [])
+                    ]), 
+                    span(['Albums'])                    
+                ])
+            ]),
+            div([class='card-content'], [
+                div([class='fixed-grid has-1-cols'], [
+                    div([class='grid'], [
+                        \aside_albums_list(Path, Albums),
+                        div([class='cell mt-5'], [
+                            a([class='button is-fullwidth', href='#', target='_blank', onclick='window.open(\'#\', \'newwindow\', \'width=1000,height=800\'); return false;', disabled], [
+                                div([
+                                    span([class='icon'], [
+                                        i([class='fas fa-plus'], [])
+                                    ]), 
+                                    span(['New Album'])
+                                ])
+                            ])
+                        ])
+                    ])
+                ])
             ])
         ])
     ]).
 
-albums(_   , []    ) --> html('').
-albums(Path, Albums) -->
-    { length(Albums, Length), Length > 0 },
-    html([
-        div([class='fixed-grid has-2-cols-fullhd has-2-cols-widescreen has-2-cols-desktop has-1-cols-tablet has-1-cols-mobile'], 
-            div([class='grid'], [
-                \album_list(Path, Albums)
-            ])
-        )
-    ]).
-
-album_list(_   , []            ) --> html('').
-album_list(Path, [Album|Albums]) -->
+aside_albums_list(_   , []            ) --> html('').
+aside_albums_list(Path, [Album|Albums]) --> 
     {
         http_location_by_id(albums, Location),
         atom_concat(Location, Path, Lp),
@@ -84,31 +100,13 @@ album_list(Path, [Album|Albums]) -->
     },
     html([
         div([class='cell'], [
-            div([class='card'], [
-                div([class='card-content'], [
-                    div([class='columns'], [
-                        div([class='column'], [
-                            div([class='card'], [
-                                div([class='card-image'], [
-                                    figure([class='image is-16by9'], [
-                                        img([src='http://localhost:5000/albums/i/test-1/PXL_20240328_190953504.jpg', style='object-fit: cover'],[]) % TODO: dynamic image
-                                    ])
-                                ])
-                            ])
-                        ]),
-                        div([class='column'], [
-                            p([class='is-size-4 is-capitalized'], Album)
-                        ])
-                    ])
-                ])                ,
-                footer([class='card-footer'], [
-                    a([class='card-footer-item', href=Url], 'Open'),
-                    a([class='card-footer-item', href='#'], 'Share'),
-                    a([class='card-footer-item', href='#'], 'Delete')
+            a([class='button is-fullwidth', href=Url], [
+                div([class='is-capitalized'], [
+                    Album
                 ])
             ])
         ]),
-        \album_list(Path, Albums)
+        \aside_albums_list(Path, Albums)
     ]).
 
 images(_   , []    ) --> html('').
