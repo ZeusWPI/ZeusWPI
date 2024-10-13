@@ -21,4 +21,3 @@ get_album_images(ParentTree, Images) :-
         member(FileName, Entries),
         atom_concat(_, Extension, FileName)
     ), Images).
-    

@@ -1,7 +1,7 @@
 :- module('album_controller', []).
 
 :- use_module('../models/album_model').
-:- use_module('../templates/view/album_view').
+:- use_module('../templates/view/album/album_view').
 
 albums(Request) :-
     (

@@ -3,7 +3,7 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 
-:- use_module('../layout/page').
+:- use_module('../../layout/page').
 
 album_view(Path, Albums, Images) :-
     page_(
@@ -17,13 +17,18 @@ album_view(Path, Albums, Images) :-
 
 aside(Path, Albums) -->
     {
-        atom_concat(NPath, '/', Path),
-        atomic_list_concat(PathParts, '/', NPath),
-        last(PathParts, CurrentAlbum)
+        (
+            atom_concat(NPath, '/', Path),
+            atomic_list_concat(PathParts, '/', NPath),
+            last(PathParts, CurrentAlbum) ->
+            true
+            ;
+            CurrentAlbum = '$'
+        )
+            
     },
     html([
         div([class='column is-2'], [
-            
             div([class='card'], [
                 header([class='card-header'], [
                     p([class='card-header-title is-capitalized'], [CurrentAlbum])
