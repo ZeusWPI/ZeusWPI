@@ -4,40 +4,36 @@
 :- use_module(library(http/http_dispatch)).
 
 :- use_module('../../layout/page').
+:- use_module('../../../models/album_model').
+:- use_module('../../../models/image_model').
 
-album_view(Path, Albums, Images) :-
-    page_(
+album_view(Album, Albums, Images) :-
+    page_([
         div([class='columns'],  [
-            \aside(Path, Albums),
+            \aside(Album, Albums),
             div([class='column is-10 pl-0'], [
-                \images(Path, Images)
+                \images(Album, Images)
             ])    
         ])
-    ).
+    ]).
 
-aside(Path, Albums) -->
+aside(Album, Albums) -->
     {
-        (
-            atom_concat(NPath, '/', Path),
-            atomic_list_concat(PathParts, '/', NPath),
-            last(PathParts, CurrentAlbum) ->
-            true
-            ;
-            CurrentAlbum = '$'
-        )
-            
+        album_id(Album, Id),
+        album_title(Album, Title),
+        http_link_to_id(album_upload, path_postfix(Id), UploadUrl)
     },
     html([
         div([class='column is-2'], [
             div([class='card'], [
                 header([class='card-header'], [
-                    p([class='card-header-title is-capitalized'], [CurrentAlbum])
+                    p([class='card-header-title is-capitalized'], [Title])
                 ]),
                 div([class='card-content'], [
                     div([class='fixed-grid has-1-cols'], [
                         div([class='grid'], [
                             div([class='cell'], [
-                                a([class='button is-fullwidth', href='#', disabled], [
+                                a([class='button is-fullwidth', href=UploadUrl], [
                                     div([
                                         span([class='icon'], [
                                             i([class='fas fa-upload'], [])
@@ -60,11 +56,11 @@ aside(Path, Albums) -->
                     ])  
                 ])
             ]),
-            \aside_albums(Path, Albums)
+            \aside_albums(Album, Albums)
         ])
     ]).
 
-aside_albums(Path, Albums) -->
+aside_albums(Album, Albums) -->
     html([
         div([class='card'], [
             header([class='card-header'], [
@@ -98,16 +94,15 @@ aside_albums(Path, Albums) -->
 aside_albums_list(_   , []            ) --> html('').
 aside_albums_list(Path, [Album|Albums]) --> 
     {
-        http_location_by_id(albums, Location),
-        atom_concat(Location, Path, Lp),
-        atom_concat(Lp, Album, Lpa),
-        atom_concat(Lpa, /, Url)
+        album_id(Album, Id),
+        album_title(Album, Title),
+        http_link_to_id(albums, path_postfix(Id), Url)
     },
     html([
         div([class='cell'], [
             a([class='button is-fullwidth', href=Url], [
                 div([class='is-capitalized'], [
-                    Album
+                    Title
                 ])
             ])
         ]),
@@ -115,22 +110,23 @@ aside_albums_list(Path, [Album|Albums]) -->
     ]).
 
 images(_   , []    ) --> html('').
-images(Path, Images) -->
+images(Album, Images) -->
     { length(Images, Length), Length > 0 },
     html([
         div([class='fixed-grid has-8-cols-fullhd has-6-cols-widescreen has-4-cols-desktop has-2-cols-tablet has-1-cols-mobile'], 
             div([class='grid'], [
-                \image_list(Path, Images)
+                \image_list(Album, Images)
             ])
         )
     ]).
 
+
 image_list(_, []) --> html('').
-image_list(Path, [Image|Images]) --> 
+image_list(Album, [Image|Images]) --> 
     {
-        http_location_by_id('ablum_images', Location),
-        atom_concat(Location, Path, Lp),
-        atom_concat(Lp, Image, Url)
+        image_id(Image, Id),
+        http_link_to_id(album_image, path_postfix(Id), Url)
+        
     },
     html([
         div([class='cell'], [
