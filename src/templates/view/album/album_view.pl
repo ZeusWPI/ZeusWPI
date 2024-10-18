@@ -61,6 +61,10 @@ aside(Album, Albums) -->
     ]).
 
 aside_albums(Album, Albums) -->
+    {
+        album_id(Album, Id),
+        http_link_to_id('album_new', path_postfix(Id), Url)
+    },
     html([
         div([class='card'], [
             header([class='card-header'], [
@@ -75,13 +79,24 @@ aside_albums(Album, Albums) -->
                 div([class='fixed-grid has-1-cols'], [
                     div([class='grid'], [
                         \aside_albums_list(Path, Albums),
-                        div([class='cell mt-5'], [
-                            a([class='button is-fullwidth', href='#', target='_blank', onclick='window.open(\'#\', \'newwindow\', \'width=1000,height=800\'); return false;', disabled], [
-                                div([
-                                    span([class='icon'], [
-                                        i([class='fas fa-plus'], [])
-                                    ]), 
-                                    span(['New Album'])
+                        form([class=form, method='POST', action=Url], [
+                            div([class='cell mt-5'], [
+                                div([class=field],[
+                                    div([class=control], [
+                                        input([class='input', type=text, name=title, placeholder='Title'])
+                                    ])
+                                ]),
+                                div([class=field],[
+                                    div([class=control], [
+                                        button([class='button is-fullwidth', type=submit], [
+                                            div([
+                                                span([class='icon'], [
+                                                    i([class='fas fa-plus'], [])
+                                                ]), 
+                                                span(['New Album'])
+                                            ])
+                                        ])
+                                    ])
                                 ])
                             ])
                         ])

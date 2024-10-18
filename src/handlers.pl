@@ -33,7 +33,7 @@ http:location(files, root(.), []).
 :- http_handler(root(albums/l/Id), login(album_controller:list(Id))       , [id(albums), app(album)]).
 :- http_handler(root(albums/i/Id), login(album_controller:image(Id))      , [id(album_image), app(album)]).
 :- http_handler(root(albums/i/t/Id), login(album_controller:thumbnail(Id)), [id(album_image_thumbnail), app(album)]).
-:- http_handler(root(albums/n), login(album_controller:new)           , [id(album_new) , app(album), method(get)] ).
+:- http_handler(root(albums/n/Id), login(album_controller:new(Id))           , [id(album_new) , app(album), method(post)] ).
 :- http_handler(root(albums/u/Id), login(album_controller:upload(Method, Id))     , [id(album_upload), app(album), method(Method)]).
 
 

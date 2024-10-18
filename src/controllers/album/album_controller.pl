@@ -2,6 +2,7 @@
 
 :- use_module(library(http/http_client)).
 :- use_module(library(http/http_dispatch)).
+:- use_module(library(http/http_parameters)).
 
 :- use_module('../../models/album_model').
 :- use_module('../../models/image_model').
@@ -64,6 +65,16 @@ image(Id, Request) :-
     (image_by_id(Id, Image) ->
         image_original(Image, Original),
         http_reply_file(Original, [cache(true)], Request)        
+        ;
+        fail
+    ).
+
+new(Id, Request) :-
+    ((album_by_id(Id, Album); Id = none) ->
+        http_parameters(Request, [title(Title, [])]),
+        new_album(album(NId, Title, 'a description', Id)),
+        http_link_to_id(albums, path_postfix(NId), URL),
+        http_redirect(see_other, URL, Request)
         ;
         fail
     ).
