@@ -115,7 +115,7 @@ aside_albums_list(Path, [Album|Albums]) -->
     },
     html([
         div([class='cell'], [
-            a([class='button is-fullwidth', href=Url], [
+            a([class='button is-fullwidth', href=Url, style='height: max-content; white-space: inherit'], [
                 div([class='is-capitalized'], [
                     Title
                 ])

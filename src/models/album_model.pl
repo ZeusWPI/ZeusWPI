@@ -35,6 +35,7 @@ new_album(album(Id, T, D, P)) :-
     ),
     random_atom(32, Id),
     \+ album_by_id(Id, _), !,
+    \+ album(_, T, _, P), !,
     assert_album(Id, T, D, P),
     album_storage(Id, Directory),
     make_directory(Directory).
