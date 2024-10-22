@@ -12,10 +12,10 @@
 
 :- use_module(library(record)).
 
-:- use_module('../../config').
-:- use_module('database').
+:- use_module('../../../config').
+:- use_module('../database').
 
-:- use_module('../util/random_atom').
+:- use_module('../../util/random_atom').
 
 :- record album(
     id:atom, 

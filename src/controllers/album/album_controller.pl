@@ -4,8 +4,8 @@
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_parameters)).
 
-:- use_module('../../models/album_model').
-:- use_module('../../models/image_model').
+:- use_module('../../models/album/album_model').
+:- use_module('../../models/album/image_model').
 :- use_module('../../templates/view/album/album_view').
 :- use_module('../../templates/view/album/upload_view').
 :- use_module('../../../config').
@@ -13,10 +13,10 @@
 :- use_module('../../util/random_atom').
 
 list('', Request) :- list(none, Request).
-list(none, Request) :- 
+list(none, _Request) :- 
     album_children(none, Albums),
     album_view(album(none, 'A', 'A', none), Albums, []).
-list(Id, Request) :-
+list(Id, _Request) :-
     (album_by_id(Id, Album) ->
         album_children(Id, Albums),
         images_by_album(Id, Images),
@@ -25,11 +25,11 @@ list(Id, Request) :-
         fail
     ).
 
-upload(get, Id, Request) :-
+upload(get, _Id, _Request) :-
     upload_view().
 
 upload(post, Id, Request) :-
-    (album_by_id(Id, Album) ->
+    (album_by_id(Id, _Album) ->
 
         http_read_data(Request, Parts, [form_data(mime)]),
         member(mime(Attributes, Data, []), Parts),
@@ -70,7 +70,7 @@ image(Id, Request) :-
     ).
 
 new(Id, Request) :-
-    ((album_by_id(Id, Album); Id = none) ->
+    ((album_by_id(Id, _Album); Id = none) ->
         http_parameters(Request, [title(Title, [])]),
         new_album(album(NId, Title, 'a description', Id)),
         http_link_to_id(albums, path_postfix(NId), URL),

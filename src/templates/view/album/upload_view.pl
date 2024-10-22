@@ -11,7 +11,7 @@ upload_view() :-
             div([class='column is-8'], [
                 div([class='card'], [
                     div([class='card-content'], [
-                        form([id=upload, method='POST', action=location_by_id(upload), enctype='multipart/form-data'], [
+                        form([id=upload, method='POST', action=location_by_id(album_upload), enctype='multipart/form-data'], [
                             div([class='file is-boxed'], [
                                 label([class='file-label', style='width: 100%'],[
                                     input([class='file-input', type=file, name=file, multiple]),

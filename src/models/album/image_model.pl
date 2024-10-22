@@ -11,11 +11,11 @@
 
 :- use_module(library(record)).
 
-:- use_module('../../config').
-:- use_module('database').
+:- use_module('../../../config').
+:- use_module('../database').
 :- use_module('album_model').
 
-:- use_module('../util/random_atom').
+:- use_module('../../util/random_atom').
 
 :- record image(
     id: atom,
@@ -40,9 +40,3 @@ images_by_album(AId, Images) :-
         Images
     ).
 
-get_image(FileName) :-
-    directory_files('files', Entries),
-    content_type(Type, Extension),
-    atom_concat('image', _, Type),
-    member(FileName, Entries),
-    atom_concat(_, Extension, FileName).

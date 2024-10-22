@@ -8,7 +8,7 @@
 :- use_module('_cdn').
 :- use_module('_nav_item').
 
-nav --> { current_app(album)}, html([ \album_nav ]).
+nav --> { current_app(album) }, html([ \album_nav ]).
 nav --> { current_app(cdn) }, html([ \cdn_nav ]).
 
 nav -->
@@ -16,27 +16,34 @@ nav -->
         nav([class=navbar], [
             div([class='navbar-brand'], []),
             div([class='navbar-menu'], [
+                div([class='navbar-start'], [
+                    \start
+                ]),
                 div([class='navbar-end'], [
-                    \user_specific
+                    \end
                 ])
             ])
         ])
     ]).
 
-user_specific --> 
-    {http_session_data(user(_Id, _Name, Role))},
+start -->
+    { http_session_data(user(_Id, _Name, _Role)), ! },
     html([
-        \admin_stuff(Role),
-        \nav_item(location_by_id(images), 'fas fa-image', 'Images'),
-        \nav_item(location_by_id(documents), 'fas fa-file', 'Files'),
-        \nav_item(location_by_id(albums), 'fas fa-file', 'Albums'),
+        \nav_item(location_by_id(cdn_images), 'fas fa-file', 'CDN'),
+        \nav_item(location_by_id(album_root), 'fas fa-folder', 'Albums')
+    ]).
+start --> html('').
+
+end --> 
+    { http_session_data(user(_Id, _Name, Role)), ! },
+    html([
+        \end_admin(Role),
         \nav_item(location_by_id(logout), 'fas fa-right-from-bracket', 'Logout')
     ]).
-user_specific --> nav_item(location_by_id(login), 'fas fa-file', 'Login').
+end --> nav_item(location_by_id(login), 'fas fa-file', 'Login').
 
-admin_stuff(admin) --> 
+end_admin(admin) --> 
     html([
-        \nav_item(location_by_id(users), 'fas fa-users-gear', 'Users'),
-        \nav_item(location_by_id(new_upload), 'fas fa-upload', 'Upload')
+        \nav_item(location_by_id(users), 'fas fa-users-gear', 'Users')
     ]).
-admin_stuff(_) --> html('').
+end_admin(_) --> html('').

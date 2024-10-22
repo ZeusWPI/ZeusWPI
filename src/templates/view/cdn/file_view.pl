@@ -1,9 +1,9 @@
-:- module(file_view, [files_view/1]).
+:- module(cdn_file_view, [files_view/1]).
 
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 
-:- use_module('../layout/page').
+:- use_module('../../layout/page').
 
 files_view(FileNames) :-
     http_location_by_id(files, FileLocation),

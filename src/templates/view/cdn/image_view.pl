@@ -1,9 +1,9 @@
-:- module(image_view, [images_view/1, upload_form/0]).
+:- module(cdn_image_view, [images_view/1, upload_form/0]).
 
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 
-:- use_module('../layout/page').
+:- use_module('../../layout/page').
 
 images_view(Images) :-
     http_location_by_id(files, FileLocation),

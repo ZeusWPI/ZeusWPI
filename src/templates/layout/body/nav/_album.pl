@@ -23,18 +23,18 @@ album_nav -->
 
 start(_Role) -->
     html([
-        \nav_item(location_by_id(albums), 'fas fa-file', 'Albums')
+        \nav_item(location_by_id(album_root), 'fas fa-file', 'Albums')
     ]).
 
 end(Role) --> 
     html([
-        \admin_buttons(Role),
-        \nav_item(location_by_id(images), 'fas fa-file', 'Goto CDN'),
+        \nav_item(location_by_id(cdn_images), 'fas fa-file', 'Goto CDN'),
+        \end_admin(Role),
         \nav_item(location_by_id(logout), 'fas fa-right-from-bracket', 'Logout')
     ]).
 
-admin_buttons(admin) --> 
+end_admin(admin) --> 
     html([
         \nav_item(location_by_id(users), 'fas fa-users-gear', 'Users')
     ]).
-admin_buttons(_) --> html('').
+end_admin(_) --> html('').

@@ -23,14 +23,30 @@ cdn_nav -->
 start -->
     {http_session_data(user(_Id, _Name, _Role))},
     html([
-        \nav_item(location_by_id(images), 'fas fa-file', 'CDN')
+        \nav_item(location_by_id(cdn_images), 'fas fa-file', 'Images'),
+        \nav_item(location_by_id(cdn_files), 'fas fa-file', 'Files'),
+        \start_admin
     ]).
 start --> html('').
 
-end --> 
-    {http_session_data(user(_Id, _Name, _Role))},
+start_admin -->
+    {http_session_data(user(_Id, _Name, admin)), ! },
     html([
-        \nav_item(location_by_id(albums), 'fas fa-file', 'Goto Albums'),
+        \nav_item(location_by_id(cdn_upload), 'fas fa-upload', 'Upload')
+    ]).
+start_admin --> html('').
+
+end --> 
+    {http_session_data(user(_Id, _Name, Role)), ! },
+    html([
+        \nav_item(location_by_id(album_root), 'fas fa-file', 'Goto Albums'),
+        \end_admin(Role),
         \nav_item(location_by_id(logout), 'fas fa-right-from-bracket', 'Logout')
     ]).
 end --> nav_item(location_by_id(login), 'fas fa-file', 'Login').
+
+end_admin(admin) --> 
+    html([
+        \nav_item(location_by_id(users), 'fas fa-users-gear', 'Users')
+    ]).
+end_admin(_) --> html('').

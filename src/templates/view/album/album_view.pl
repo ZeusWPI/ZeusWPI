@@ -4,8 +4,8 @@
 :- use_module(library(http/http_dispatch)).
 
 :- use_module('../../layout/page').
-:- use_module('../../../models/album_model').
-:- use_module('../../../models/image_model').
+:- use_module('../../../models/album/album_model').
+:- use_module('../../../models/album/image_model').
 
 album_view(Album, Albums, Images) :-
     page_([
@@ -63,7 +63,7 @@ aside(Album) -->
 aside_albums(Album) -->
     {
         album_id(Album, Id),
-        http_link_to_id('album_new', path_postfix(Id), Url)
+        http_link_to_id('album_upload', path_postfix(Id), Url)
     },
     html([
         div([class='card'], [
@@ -127,7 +127,7 @@ album_list(Album, [SubAlbum|Albums]) -->
     {
         album_title(SubAlbum, Title),
         album_id(SubAlbum, Id),
-        http_link_to_id(albums, path_postfix(Id), Url)
+        http_link_to_id(album_list, path_postfix(Id), Url)
     },
     html([
         div([class='cell is-3by4'], [
@@ -165,5 +165,5 @@ image_list(Album, [Image|Images]) -->
                 ])
             ])
         ]),
-        \image_list(Path, Images) 
+        \image_list(Album, Images) 
     ]).
