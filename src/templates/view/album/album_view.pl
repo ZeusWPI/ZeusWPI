@@ -10,14 +10,14 @@
 album_view(Album, Albums, Images) :-
     page_([
         div([class='columns'],  [
-            \aside(Album, Albums),
+            \aside(Album),
             div([class='column is-10 pl-0'], [
-                \images(Album, Images)
+                \images(Album, Albums, Images)
             ])    
         ])
     ]).
 
-aside(Album, Albums) -->
+aside(Album) -->
     {
         album_id(Album, Id),
         album_title(Album, Title),
@@ -56,11 +56,11 @@ aside(Album, Albums) -->
                     ])  
                 ])
             ]),
-            \aside_albums(Album, Albums)
+            \aside_albums(Album)
         ])
     ]).
 
-aside_albums(Album, Albums) -->
+aside_albums(Album) -->
     {
         album_id(Album, Id),
         http_link_to_id('album_new', path_postfix(Id), Url)
@@ -78,9 +78,8 @@ aside_albums(Album, Albums) -->
             div([class='card-content'], [
                 div([class='fixed-grid has-1-cols'], [
                     div([class='grid'], [
-                        \aside_albums_list(Path, Albums),
                         form([class=form, method='POST', action=Url], [
-                            div([class='cell mt-5'], [
+                            div([class='cell'], [
                                 div([class=field],[
                                     div([class=control], [
                                         input([class='input', type=text, name=title, placeholder='Title'])
@@ -106,35 +105,48 @@ aside_albums(Album, Albums) -->
         ])
     ]).
 
-aside_albums_list(_   , []            ) --> html('').
-aside_albums_list(Path, [Album|Albums]) --> 
+images(_   , [], []    ) --> html('').
+images(Album, Albums, Images) -->
     {
-        album_id(Album, Id),
-        album_title(Album, Title),
-        http_link_to_id(albums, path_postfix(Id), Url)
+        length(Albums, AL),
+        length(Images, IL),
+        Length is AL + IL, 
+        Length > 0 
     },
-    html([
-        div([class='cell'], [
-            a([class='button is-fullwidth', href=Url, style='height: max-content; white-space: inherit'], [
-                div([class='is-capitalized'], [
-                    Title
-                ])
-            ])
-        ]),
-        \aside_albums_list(Path, Albums)
-    ]).
-
-images(_   , []    ) --> html('').
-images(Album, Images) -->
-    { length(Images, Length), Length > 0 },
     html([
         div([class='fixed-grid has-8-cols-fullhd has-6-cols-widescreen has-4-cols-desktop has-2-cols-tablet has-1-cols-mobile'], 
             div([class='grid'], [
+                \album_list(Album, Albums),
                 \image_list(Album, Images)
             ])
         )
     ]).
 
+album_list(_, []) --> html('').
+album_list(Album, [SubAlbum|Albums]) --> 
+    {
+        album_title(SubAlbum, Title),
+        album_id(SubAlbum, Id),
+        http_link_to_id(albums, path_postfix(Id), Url)
+    },
+    html([
+        div([class='cell is-3by4'], [
+            a([href=Url], [
+                div([class='card', style='height: 100%'], [
+                    div([class='card-image'], [
+                        figure([class='image is-4by3'], [
+                            img([src='/assets/folder.svg', style='object-fit: cover;'], [])
+                        ])
+                    ]),
+                    div([class='card-content is-capitalized has-text-weight-bold'], [
+                        Title
+                    ])
+                ])
+            ])
+            
+        ]),
+        \album_list(Album, Albums) 
+    ]).
 
 image_list(_, []) --> html('').
 image_list(Album, [Image|Images]) --> 
