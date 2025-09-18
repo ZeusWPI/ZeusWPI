@@ -17,7 +17,7 @@ login(Request) :-
     client_id(ClientId),
     redirect_uri(RedirectUri),
     atomic_list_concat([
-        'https://adams.ugent.be/oauth/oauth2/authorize?response_type=code&state=dab&',
+        'https://zauth.zeus.gent/oauth/authorize?response_type=code&state=dab&',
         'client_id=', ClientId, '&',
         'redirect_uri=', RedirectUri
     ], Uri),
@@ -37,10 +37,10 @@ callback(Request) :-
         client_secret=ClientSecret,
         redirect_uri=RedirectUri
     ],
-    http_post('https://adams.ugent.be/oauth/oauth2/token/', form(Form), Reply, []),
+    http_post('https://zauth.zeus.gent/oauth/token', form(Form), Reply, []),
     atom_json_dict(Reply, Json, []),
 
-    http_get('https://adams.ugent.be/oauth/api/current_user/', Data, [authorization(bearer(Json.get(access_token)))]),
+    http_get('https://zauth.zeus.gent/current_user/', Data, [authorization(bearer(Json.get(access_token)))]),
     atom_json_dict(Data, UserData, []),
     (
         get_user(UserData.id, UserData.username, Role)
