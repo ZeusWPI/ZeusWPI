@@ -6,11 +6,11 @@
 head -->
     html([
         title('ZeusWPI'),
-        \uikit,
+        \bulma,
         meta([name='viewport', content='width=device-width', 'initial-scale'='1.0'])
     ]).
 
-uikit -->
+bulma -->
     html([
         link([href='/assets/css/bulma.min.css',rel=stylesheet]),
         link([href='/assets/css/fa-all.min.css', rel=stylesheet]),
