@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zeuswpi:
     build: .
@@ -12,6 +10,7 @@ services:
       - ./data:/app/data
     ports:
       - 5000:5000
+    restart: unless-stopped
   redis:
     image: redis:alpine
     volumes:
