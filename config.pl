@@ -24,6 +24,7 @@ content_type('image/jpeg'   , '.jpg').
 content_type('image/png'    , '.png').
 content_type('image/svg+xml', '.svg').
 content_type('image/webp'   , '.webp').
+content_type('video/mp4'   , '.mp4').
 
 content_type('application/zip', '.zip').
 content_type('application/pdf', '.pdf').
