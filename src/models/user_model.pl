@@ -2,10 +2,12 @@
     admin_role/1,
     user_role/1,
 
+
     check_level/2,
 
     get_user/3, 
-    add_user/3
+    add_user/3,
+    update_or_create_user/3
 ]).
 
 :- use_module(library(persistency)).
@@ -23,6 +25,9 @@ get_user(Id, Name, Role) :-
 add_user(Id, Name, Role) :-
     assert_user(Id, Name, Role).
 
+update_or_create_user(Id, Name, Role) :-
+    retractall_user(Id, _, _),
+    assert_user(Id, Name, Role).
 
 %   Authentication
 
