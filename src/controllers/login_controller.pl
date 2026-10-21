@@ -89,5 +89,4 @@ require_auth(Level, Handler, Request) :-
 %   Predicate to match a zauth role to internal roles.
 get_role(ZauthRoles, Role) :- member("bestuur", ZauthRoles), !, admin_role(Role).
 get_role(ZauthRoles, Role) :- member("pics_admin", ZauthRoles), !, admin_role(Role).
-get_role(ZauthRoles, Role) :- member("zeus_dev", ZauthRoles), !, admin_role(Role).
 get_role(_, Role) :- user_role(Role).
