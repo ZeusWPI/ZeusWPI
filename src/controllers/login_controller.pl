@@ -17,7 +17,7 @@ login(Request) :-
     client_id(ClientId),
     redirect_uri(RedirectUri),
     atomic_list_concat([
-        'https://zauth.zeus.gent/oauth/authorize?response_type=code&state=dab&',
+        'https://zauth.zeus.gent/oauth/authorize?response_type=code&state=dab&scope=roles&',
         'client_id=', ClientId, '&',
         'redirect_uri=', RedirectUri
     ], Uri),
@@ -43,12 +43,8 @@ callback(Request) :-
     http_get('https://zauth.zeus.gent/current_user/', Data, [authorization(bearer(Json.get(access_token)))]),
     atom_json_dict(Data, UserData, []),
     (
-        get_user(UserData.id, UserData.username, Role)
-        ;
-        (
-            user_role(Role),
-            add_user(UserData.id, UserData.username, Role)
-        )
+        get_role(UserData.roles, Role),
+        update_or_create_user(UserData.id, UserData.username, Role)
     ),
     http_session_assert(user(UserData.id, UserData.username, Role)),
     http_session_assert(alert(success, 'Login successful')),
@@ -89,3 +85,9 @@ require_auth(Level, Handler, Request) :-
         http_location_by_id(login, Location),
         http_redirect(see_other, Location, Request)
     ).
+
+%   Predicate to match a zauth role to internal roles.
+get_role(ZauthRoles, Role) :- member("bestuur", ZauthRoles), !, admin_role(Role).
+get_role(ZauthRoles, Role) :- member("pics_admin", ZauthRoles), !, admin_role(Role).
+get_role(ZauthRoles, Role) :- member("zeus_dev", ZauthRoles), !, admin_role(Role).
+get_role(_, Role) :- user_role(Role).
