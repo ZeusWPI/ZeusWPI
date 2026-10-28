@@ -33,8 +33,8 @@ server(Port, RedisServer, After) :-
     http_set_session_options([
         timeout( 86400  ),     % Sessions last a day.
         cookie(  session),     % Don't use the default session cookie name.
-	      redis_db(RedisServer), % Redis server for sessions.
-	      gc(active) 	           % Active gc for sessions.
+	    redis_db(RedisServer), % Redis server for sessions.
+	    gc(active) 	           % Active gc for sessions.
     ]),
     http_server(http_dispatch, [port(Port)]),
     busy(After).

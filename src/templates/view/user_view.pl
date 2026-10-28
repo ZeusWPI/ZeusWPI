@@ -6,15 +6,20 @@
 
 users_view(Users) :-
     page_(
-        div([class='grid m-3'], [
+        div([class='fixed-grid m-3 has-1-cols'], [
+            div([class='notification is-info is-light'], [
+                'An overview of the ', strong(['currently active sessions']), '. This app no longer uses a database for user storage, so more users than this will have access or will have interacted with this app in the past'
+            ]),
             div([class='card'], [
                 div([class='card-content'], [
                     table([class='table is-fullwidth'], [
                         thead(
                             tr([
-                                th('Id'),
+                                th('Session ID'),
+                                th('User ID'),
                                 th('Name'),
-                                th('Role')
+                                th('Role'),
+                                th('Idle Time')
                             ])
                         ),
                         tbody([
@@ -27,12 +32,18 @@ users_view(Users) :-
     ).
 
 users_view_([]) --> html('').
-users_view_([user(Id, Name, Role)|Users]) -->
+users_view_([user(SessionID, ID, Name, Role, IdleTime)|Users]) -->
     html([
         tr([
-            td(Id),
+            td(SessionID),
+            td(ID),
             td(Name),
-            td(Role)
+            %'oi',
+            td(\role(Role)),
+            td(IdleTime)
         ]),
         \users_view_(Users)
     ]).
+
+role(user) --> html([span([class='tag is-light'], ['User'])]).
+role(admin) --> html([span([class='tag is-dark'], ['Admin'])]).

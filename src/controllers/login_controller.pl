@@ -42,10 +42,7 @@ callback(Request) :-
 
     http_get('https://zauth.zeus.gent/current_user/', Data, [authorization(bearer(Json.get(access_token)))]),
     atom_json_dict(Data, UserData, []),
-    (
-        get_role(UserData.roles, Role),
-        update_or_create_user(UserData.id, UserData.username, Role)
-    ),
+    get_internal_role(UserData.roles, Role),
     http_session_assert(user(UserData.id, UserData.username, Role)),
     http_session_assert(alert(success, 'Login successful')),
     http_location_by_id(main, Location),
@@ -87,6 +84,6 @@ require_auth(Level, Handler, Request) :-
     ).
 
 %   Predicate to match a zauth role to internal roles.
-get_role(ZauthRoles, Role) :- member("bestuur", ZauthRoles), !, admin_role(Role).
-get_role(ZauthRoles, Role) :- member("pics_admin", ZauthRoles), !, admin_role(Role).
-get_role(_, Role) :- user_role(Role).
+get_internal_role(ZauthRoles, Role) :- member("bestuur", ZauthRoles), !, admin_role(Role).
+get_internal_role(ZauthRoles, Role) :- member("pics_admin", ZauthRoles), !, admin_role(Role).
+get_internal_role(_, Role) :- user_role(Role).
