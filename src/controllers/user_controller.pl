@@ -7,9 +7,12 @@
 :- use_module('../templates/layout/page').
 
 users(_Request) :-
+
     findall(
-        user(Id, Name, Role),
-        get_user(Id, Name, Role),
+        user(SessionID, ID, Name, Role, IdleTime),
+        (   
+            http_current_session(SessionID, user(ID, Name, Role)),            http_current_session(SessionID, idle(IdleTime))
+        ),
         Users
     ),
     users_view(Users).

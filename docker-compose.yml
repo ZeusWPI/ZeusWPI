@@ -7,7 +7,6 @@ services:
       - ZEUSWPI_REDIRECT_URI=http://localhost:5000/login/callback
     volumes:
       - ./files:/app/files
-      - ./data:/app/data
     ports:
       - 5000:5000
     restart: unless-stopped

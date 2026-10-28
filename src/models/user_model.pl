@@ -1,33 +1,9 @@
 :- module(user_model, [
     admin_role/1,
     user_role/1,
-
-
-    check_level/2,
-
-    get_user/3, 
-    add_user/3,
-    update_or_create_user/3
+    
+    check_level/2
 ]).
-
-:- use_module(library(persistency)).
-
-:- persistent user(
-    id: integer,
-    name: string,
-    role: oneof([user, admin])).
-
-:- initialization(db_attach('data/user.db', [])).
-
-get_user(Id, Name, Role) :-
-    user(Id, Name, Role).
-
-add_user(Id, Name, Role) :-
-    assert_user(Id, Name, Role).
-
-update_or_create_user(Id, Name, Role) :-
-    retractall_user(Id, _, _),
-    assert_user(Id, Name, Role).
 
 %   Authentication
 
