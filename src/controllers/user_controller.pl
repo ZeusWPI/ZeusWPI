@@ -11,7 +11,8 @@ users(_Request) :-
     findall(
         user(SessionID, ID, Name, Role, IdleTime),
         (   
-            http_current_session(SessionID, user(ID, Name, Role)),            http_current_session(SessionID, idle(IdleTime))
+            http_current_session(SessionID, user(ID, Name, Role)),
+            http_current_session(SessionID, idle(IdleTime))
         ),
         Users
     ),
