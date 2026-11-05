@@ -38,7 +38,6 @@ users_view_([user(SessionID, ID, Name, Role, IdleTime)|Users]) -->
             td(SessionID),
             td(ID),
             td(Name),
-            %'oi',
             td(\role(Role)),
             td(IdleTime)
         ]),
